@@ -1,6 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "../generated/prisma"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
@@ -13,9 +13,6 @@ model User {
   name      String   @db.VarChar(255)
   email     String   @db.VarChar(225)
   password  String   @db.VarChar(225)
-  status    Boolean  @default(true)
-  createdAt DateTime @default(now()) @db.DateTime(0)
-  updatedAt DateTime @updatedAt
 
   @@map("users")
 }
