@@ -23,7 +23,7 @@ model User {
 model Product {
   id        Int      @id @default(autoincrement())
   name      String   @db.VarChar(255)
-  price     Decimal   @db.Decimal()
+  price     Decimal   @db.Decimal(10, 2)
   status Boolean @default(true)
   createLatedAt DateTime @default(now()) @db.DateTime(0)
   updatedAt DateTime @updatedAt
