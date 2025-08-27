@@ -1,7 +1,6 @@
-import { IsEmail } from "class-validator";
-import { CreateUserDto } from "src/app/user/dto/create-user.dto";
+import { IsEmail } from 'class-validator';
 
-export class AuthForgetDto extends CreateUserDto {
-    @IsEmail()
-    email: string;
+export class AuthForgetDto {
+  @IsEmail()
+  email: string;
 }
