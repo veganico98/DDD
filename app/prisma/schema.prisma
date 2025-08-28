@@ -13,6 +13,7 @@ model User {
   name      String   @db.VarChar(255)
   email     String   @db.VarChar(225)
   password  String   @db.VarChar(225)
+  role Int @default(1)
   status Boolean @default(true)
   createLatedAt DateTime @default(now()) @db.DateTime(0)
   updatedAt DateTime @updatedAt

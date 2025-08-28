@@ -2,6 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import * as bcrypt from 'bcrypt';
+
 
 @Injectable()
 export class UserService {
@@ -20,6 +22,10 @@ export class UserService {
   }
 
   async create(createUserDto: CreateUserDto) {
+
+    const salt = await bcrypt.genSalt()
+    createUserDto.password = await bcrypt.hash(createUserDto.password, salt)
+    
     return this.prismaService.user.create({
       data: createUserDto,
     });
@@ -27,6 +33,12 @@ export class UserService {
 
   async update(id: number, updateUserDto: UpdateUserDto) {
     await this.userExists(id);
+
+    const salt = await bcrypt.genSalt()
+    
+    if (updateUserDto.password) {
+      updateUserDto.password = await bcrypt.hash(updateUserDto.password, salt);
+    }
 
     return this.prismaService.user.update({
       data: updateUserDto,

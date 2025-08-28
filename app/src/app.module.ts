@@ -1,12 +1,27 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from './app/user/user.module';
-import { ProductModule } from './app/product/product.module';
 import { AuthModule } from './app/auth/auth.module';
+import { ProductModule } from './app/product/product.module';
+import { UserModule } from './app/user/user.module';
+import { ThrottlerModule } from '@nestjs/throttler';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [UserModule, ProductModule, AuthModule],
+  imports: [
+    ConfigModule.forRoot(),
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          ttl: 60000,
+          limit: 10,
+        },
+      ],
+    }),
+    forwardRef(() => UserModule),
+    forwardRef(() => ProductModule),
+    forwardRef(() => AuthModule)
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

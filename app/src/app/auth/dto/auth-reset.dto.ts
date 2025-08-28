@@ -1,14 +1,11 @@
-import { IsJWT, IsStrongPassword } from "class-validator";
-import { CreateUserDto } from "src/app/user/dto/create-user.dto";
+import { IsJWT, IsStrongPassword } from 'class-validator';
 
-export class AuthResetDto extends CreateUserDto {
-    
-
+export class AuthResetDTO {
   @IsStrongPassword({
     minLength: 6,
   })
   password: string;
 
   @IsJWT()
-    token: string;
+  token: string;
 }
