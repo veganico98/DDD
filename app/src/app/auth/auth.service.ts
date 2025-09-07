@@ -5,7 +5,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { UserService } from '../user/user.service';
 import * as bcrypt from 'bcrypt';
 import { MailService } from '../commom/external/mail/mail.service';
-import { AuthRegisterDto } from './dto/auth-register.dto';
+import { AuthRegisterDTO } from './dto/auth-register.dto';
 
 @Injectable()
 export class AuthService {
@@ -143,7 +143,7 @@ export class AuthService {
 
   }
 
-  async register(data: AuthRegisterDto) {
+  async register(data: AuthRegisterDTO) {
     const user = await this.userService.create(data);
 
     return this.createToken(user);
